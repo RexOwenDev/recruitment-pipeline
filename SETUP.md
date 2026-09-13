@@ -183,7 +183,7 @@ Set the hidden field value in your Typeform embed URL: `?client_slug=acme-corp`
 1. Typeform Admin → Connect → Webhooks → + Add a webhook
 2. Webhook URL: copy the production webhook URL from n8n after activating `01-candidate-intake`
 3. Enable the webhook → note the **Signing Secret**
-4. In n8n: **Settings → Variables → + Add Variable** → Name: `TYPEFORM_HMAC_SECRET`, Value: your signing secret
+4. Store the signing secret as `TYPEFORM_HMAC_SECRET` as described in Step 5
 
 ### 2.6 ClickUp — Find Your IDs
 
@@ -239,9 +239,13 @@ Also update `errorWorkflow` in each workflow's Settings tab to the new ID of `00
 
 ## Step 5 — Set Environment Variables for HMAC Secrets
 
-Both HMAC secrets are read from n8n environment variables — **do not edit Code node jsCode directly**.
+Both Code nodes read the secrets with `$env['NAME']`, which n8n resolves from environment variables on the machine running n8n.
 
-In n8n: **Settings → Variables → + Add Variable** for each:
+**Self hosted n8n:** add both names to the n8n environment (for example in your Docker or systemd config) and restart n8n.
+
+**n8n Cloud:** environment variables are not available. Create both under **Settings → Variables**, then in each Code node listed below change `$env['NAME']` to `$vars.NAME`.
+
+| Variable name | Value | Used in |
 
 | Variable name | Value | Used in |
 |---|---|---|

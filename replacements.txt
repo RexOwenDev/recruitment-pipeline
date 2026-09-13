@@ -29,10 +29,10 @@
   → Your Typeform webhook signing secret (for HMAC-SHA256 verification).
   → Find it: Typeform Admin → Connect → Webhooks → your webhook → Signing Secret.
   → This is NOT a credential ID — it is the raw signing secret string.
-  → Set as an n8n environment variable: n8n → Settings → Variables → + Add Variable
-      Name:  TYPEFORM_HMAC_SECRET
-      Value: <your signing secret>
-  → The workflow reads it via $env['TYPEFORM_HMAC_SECRET'] — never hardcode it.
+  → The workflow reads it with $env['TYPEFORM_HMAC_SECRET']. Never hardcode it.
+  → Self hosted n8n: set TYPEFORM_HMAC_SECRET in the n8n environment and restart.
+  → n8n Cloud: create it under Settings → Variables and change $env['TYPEFORM_HMAC_SECRET']
+    to $vars.TYPEFORM_HMAC_SECRET in the intake Code node. See SETUP.md Step 5.
 
 [TYPEFORM_FORM_ID]
   → Your Typeform form ID.
@@ -150,10 +150,10 @@
   → Generate: openssl rand -hex 32  (or any 32+ character random string).
   → Your dispatch system signs the raw JSON body with this secret and sends the result in:
       Header: x-offer-signature: sha256=<hex>
-  → Set as an n8n environment variable: n8n → Settings → Variables → + Add Variable
-      Name:  OFFER_WEBHOOK_SECRET
-      Value: <your generated secret>
-  → The workflow reads it via $env['OFFER_WEBHOOK_SECRET'] — never hardcode it.
+  → The workflow reads it with $env['OFFER_WEBHOOK_SECRET']. Never hardcode it.
+  → Self hosted n8n: set OFFER_WEBHOOK_SECRET in the n8n environment and restart.
+  → n8n Cloud: create it under Settings → Variables and change $env['OFFER_WEBHOOK_SECRET']
+    to $vars.OFFER_WEBHOOK_SECRET in the offer gate Code node. See SETUP.md Step 5.
   → KEEP THIS SECRET — it is the only auth on the offer gate webhook.
   → Also include requestedAt (ISO string) in the JSON body to enable replay protection.
 
